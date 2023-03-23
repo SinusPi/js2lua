@@ -151,4 +151,12 @@ describe('convert(** type **)', function () {
             result.split('\\\\').length.should.equal(1);
         });
     })
+
+    describe('table keys are', function() {
+        var result = js2lua.convert({'a':"a",'1':1})
+        it('double quoted by default',()=>{
+            console.log(result)
+        })
+    })
+
 });
