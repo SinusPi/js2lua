@@ -1,3 +1,8 @@
+v1.0.0 / 2023-03-23 (sinus@sinpi.net)
+===================
+
+ * Updated object listing to present keys in sorted order
+ * Fixed backslash escaping
 
 v0.1.5 / 2013-07-09 
 ==================
