@@ -105,11 +105,10 @@ describe('convert(** type **)', function () {
             result2.indexOf("[\"line\\nbreak\"]").should.equal(1)
         })
 
-        let object = { zzz: 2, '999':9 }
+        let object = { zzz: 2, '999':9, '1000':0 }
         object.aaa=1 // prop added after object was created would be sorted at end
         var result3 = js2lua.convert(object);
-        console.log(result3)
-        it ('should have keys sorted', ()=> result3.match(/999.*aaa.*zzz/).should.be.ok )
+        it ('should have keys sorted', ()=> result3.match(/999.*1000.*aaa.*zzz/).should.be.ok )
         it ('should show numeric keys without quotes', ()=> result3.match(/\[999\]/).should.be.ok )
 
     });
