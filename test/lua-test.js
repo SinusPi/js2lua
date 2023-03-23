@@ -99,6 +99,9 @@ describe('convert(** type **)', function () {
                 /\[".*"\]/.test(prop).should.be.true;
             });
         });
+
+        var result = js2lua.convert({ aaa: 1, bbb: 2, '111':3 });
+        it ('should have keys sorted', ()=> result.match(/111.*aaa.*bbb/).should.be.ok )
     });
 
     describe('nested object', function () {
