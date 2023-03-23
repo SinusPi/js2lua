@@ -108,7 +108,10 @@ describe('convert(** type **)', function () {
         let object = { zzz: 2, '999':9 }
         object.aaa=1 // prop added after object was created would be sorted at end
         var result3 = js2lua.convert(object);
+        console.log(result3)
         it ('should have keys sorted', ()=> result3.match(/999.*aaa.*zzz/).should.be.ok )
+        it ('should show numeric keys without quotes', ()=> result3.match(/\[999\]/).should.be.ok )
+
     });
 
     describe('nested object', function () {
