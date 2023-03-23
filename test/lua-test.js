@@ -99,6 +99,11 @@ describe('convert(** type **)', function () {
                 /\[".*"\]/.test(prop).should.be.true;
             });
         });
+
+        let result2 = js2lua.convert({"line\nbreak":"in\\key"})
+        it('should escape keys',()=>{
+            result2.indexOf("[\"line\\nbreak\"]").should.equal(1)
+        })
     });
 
     describe('nested object', function () {
@@ -120,7 +125,8 @@ describe('convert(** type **)', function () {
     });
 
     describe('escaped string', function() {
-        var result = js2lua.convert("\"\r\n\r\n\"\\");
+        let source = "a\"\r\n\r\n\"\\b"
+        var result = js2lua.convert(source);
         result = result.substr(1, result.length - 2);
 
         it('should escape \\n', function() {
@@ -132,7 +138,7 @@ describe('convert(** type **)', function () {
         });
 
         it('should escape \\"', function() {
-            result.indexOf('\\"').should.equal(0);
+            result.indexOf('\\"').should.equal(1);
         });
 
         it('should escape all \\n', function() {
@@ -148,7 +154,7 @@ describe('convert(** type **)', function () {
         });
 
         it('should escape all \\', function () {
-            result.split('\\\\').length.should.equal(1);
+            result.split('\\\\').length.should.equal(2);
         });
     })
 });
