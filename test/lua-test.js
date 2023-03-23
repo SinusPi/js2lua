@@ -100,10 +100,15 @@ describe('convert(** type **)', function () {
             });
         });
 
+        let result2 = js2lua.convert({"line\nbreak":"in\\key"})
+        it('should escape keys',()=>{
+            result2.indexOf("[\"line\\nbreak\"]").should.equal(1)
+        })
+
         let object = { zzz: 2, '999':9 }
         object.aaa=1 // prop added after object was created would be sorted at end
-        var result = js2lua.convert(object);
-        it ('should have keys sorted', ()=> result.match(/999.*aaa.*zzz/).should.be.ok )
+        var result3 = js2lua.convert(object);
+        it ('should have keys sorted', ()=> result3.match(/999.*aaa.*zzz/).should.be.ok )
     });
 
     describe('nested object', function () {
@@ -125,7 +130,8 @@ describe('convert(** type **)', function () {
     });
 
     describe('escaped string', function() {
-        var result = js2lua.convert('\"\r\n\r\n\"\\');
+        let source = "a\"\r\n\r\n\"\\b"
+        var result = js2lua.convert(source);
         result = result.substr(1, result.length - 2);
 
         it('should escape \\n', function() {
@@ -137,7 +143,7 @@ describe('convert(** type **)', function () {
         });
 
         it('should escape \\"', function() {
-            result.indexOf('\\"').should.equal(0);
+            result.indexOf('\\"').should.equal(1);
         });
 
         it('should escape all \\n', function() {
@@ -148,12 +154,11 @@ describe('convert(** type **)', function () {
             result.split('\\r').length.should.equal(3);
         });
 
-        it('should escape all \\"', function() {
+        it('should escape all "', function() {
             result.split('\\"').length.should.equal(3);
         });
 
         it('should escape all \\', function () {
-            console.log(result);
             result.split('\\\\').length.should.equal(2);
         });
     })
