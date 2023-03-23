@@ -100,8 +100,10 @@ describe('convert(** type **)', function () {
             });
         });
 
-        var result = js2lua.convert({ aaa: 1, bbb: 2, '111':3 });
-        it ('should have keys sorted', ()=> result.match(/111.*aaa.*bbb/).should.be.ok )
+        let object = { zzz: 2, '999':9 }
+        object.aaa=1 // prop added after object was created would be sorted at end
+        var result = js2lua.convert(object);
+        it ('should have keys sorted', ()=> result.match(/999.*aaa.*zzz/).should.be.ok )
     });
 
     describe('nested object', function () {
